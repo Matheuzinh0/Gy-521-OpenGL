@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <cmath>
-
+//Arduino com chip CH340
 using namespace LibSerial;
 
 float pitch = 0.0f, roll = 0.0f;
@@ -27,8 +27,8 @@ void updateAngles(SerialStream &serialStream) {
 
 void drawAirplane() {
     glPushMatrix();
-    glRotatef(pitch, 1.0f, 0.0f, 0.0f); // Pitch
-    glRotatef(roll, 0.0f, 0.0f, 1.0f); // Roll
+    glRotatef(pitch, 1.0f, 0.0f, 0.0f);
+    glRotatef(roll, 0.0f, 0.0f, 1.0f);
 
     glBegin(GL_TRIANGLES);
     glColor3f(1.0f, 0.0f, 0.0f);
@@ -51,14 +51,8 @@ int main() {
     glewInit();
 
     SerialStream serialStream("/dev/ttyUSB0");
-    
-    // Set baud rate
- //   serialStream.SetBaudRate(SerialStreamBuf::BAUD_115200);  // Replace this if necessary
     serialStream.SetCharacterSize(CharacterSize::CHAR_SIZE_8);
     serialStream.SetFlowControl(FlowControl::FLOW_CONTROL_NONE);
-
-    // If the above line fails, try this instead:
-    // serialStream.SetBaudRate(115200);  // Using integer value directly
 
     glMatrixMode(GL_PROJECTION);
     gluPerspective(45.0, 800.0 / 600.0, 0.1, 100.0);
